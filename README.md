@@ -13,11 +13,11 @@ Kami mengharapkan model ML dapat mengklasifikasikan pose tangan dengan akurasi t
 ---
 Metrik Digunakan Gunakan Dalam Perancangan Model ML
 -
-    Metrik Keberhasilan:
+#### Metrik Keberhasilan:
 
 Metrik Keberhasilan kami diukur berdasarkan kepresisian model dalam mengenali pose V, Jempol, dan Metal menggunakan data validasi terpisah.
 
-    Metrik Kegagalan:
+#### Metrik Kegagalan:
 
 Metrik Kegagalan kami diukur berdasarkan ketidakmampuan model mendeteksi pose tangan secara akurat, yang dapat mempengaruhi fitur filter kamera dan pengalaman pengguna.
 
