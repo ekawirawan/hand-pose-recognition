@@ -1,0 +1,26 @@
+<annotation>
+	<folder>test</folder>
+	<filename>thumb-15-_jpg.rf.758c84e06f94ecfda4078d4b249a3620.jpg</filename>
+	<path>C:\Users\USER\Documents\Perkuliahan\SEMESTER 5\Sistem Cerdas Project\RealTimeObjectDetection\Tensorflow\workspace\images\test\thumb-15-_jpg.rf.758c84e06f94ecfda4078d4b249a3620.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>474</width>
+		<height>640</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>thumb</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>263</xmin>
+			<ymin>251</ymin>
+			<xmax>357</xmax>
+			<ymax>383</ymax>
+		</bndbox>
+	</object>
+</annotation>
