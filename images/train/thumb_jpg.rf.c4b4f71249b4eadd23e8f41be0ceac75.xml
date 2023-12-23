@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>thumb_jpg.rf.c4b4f71249b4eadd23e8f41be0ceac75.jpg</filename>
+	<path>C:\Users\USER\Documents\Perkuliahan\SEMESTER 5\Sistem Cerdas Project\RealTimeObjectDetection\Tensorflow\workspace\images\train\thumb_jpg.rf.c4b4f71249b4eadd23e8f41be0ceac75.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>474</width>
+		<height>640</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>thumb</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>3</xmin>
+			<ymin>272</ymin>
+			<xmax>83</xmax>
+			<ymax>384</ymax>
+		</bndbox>
+	</object>
+</annotation>

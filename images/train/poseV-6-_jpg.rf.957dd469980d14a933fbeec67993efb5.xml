@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>poseV-6-_jpg.rf.957dd469980d14a933fbeec67993efb5.jpg</filename>
+	<path>C:\Users\USER\Documents\Perkuliahan\SEMESTER 5\Sistem Cerdas Project\RealTimeObjectDetection\Tensorflow\workspace\images\train\poseV-6-_jpg.rf.957dd469980d14a933fbeec67993efb5.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>480</width>
+		<height>640</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>poseV</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>22</xmin>
+			<ymin>265</ymin>
+			<xmax>113</xmax>
+			<ymax>425</ymax>
+		</bndbox>
+	</object>
+</annotation>

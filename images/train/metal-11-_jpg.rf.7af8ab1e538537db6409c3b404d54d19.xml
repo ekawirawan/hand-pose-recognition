@@ -1,0 +1,26 @@
+<annotation>
+	<folder>train</folder>
+	<filename>metal-11-_jpg.rf.7af8ab1e538537db6409c3b404d54d19.jpg</filename>
+	<path>C:\Users\USER\Documents\Perkuliahan\SEMESTER 5\Sistem Cerdas Project\RealTimeObjectDetection\Tensorflow\workspace\images\train\metal-11-_jpg.rf.7af8ab1e538537db6409c3b404d54d19.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>474</width>
+		<height>640</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>metal</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>309</xmin>
+			<ymin>279</ymin>
+			<xmax>439</xmax>
+			<ymax>425</ymax>
+		</bndbox>
+	</object>
+</annotation>
