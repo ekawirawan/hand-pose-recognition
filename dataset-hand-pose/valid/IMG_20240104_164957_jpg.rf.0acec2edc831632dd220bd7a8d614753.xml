@@ -1,0 +1,27 @@
+<annotation>
+	<folder></folder>
+	<filename>IMG_20240104_164957_jpg.rf.0acec2edc831632dd220bd7a8d614753.jpg</filename>
+	<path>IMG_20240104_164957_jpg.rf.0acec2edc831632dd220bd7a8d614753.jpg</path>
+	<source>
+		<database>roboflow.com</database>
+	</source>
+	<size>
+		<width>480</width>
+		<height>640</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>poseV</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<occluded>0</occluded>
+		<bndbox>
+			<xmin>358</xmin>
+			<xmax>452</xmax>
+			<ymin>254</ymin>
+			<ymax>432</ymax>
+		</bndbox>
+	</object>
+</annotation>
