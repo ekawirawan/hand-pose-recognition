@@ -1,0 +1,11 @@
+PETUNJUK PELATIHAN MODEL !!!
+1.Extract dataset.zip.
+2.Buka folder Images pada folders models.
+3.Masukan images yang telah di ekstrak kedalam folder yang sudah ada sesuai namanya.
+4.Masukan file anotasi yang ada di dataset yang baru diesktrak kedalam folder Data penamaan : 'training_data, validation_data, testing_data'.
+5.Buka jupyter notebook di terminal.
+6.create-model untuk melatih model, hand-pose-recognition untuk test prediction.
+7.Setelah model selesai dilatih dan di test, pindahkan model.h5 yang ada di dalam Folder Locator ke dalam folder streamlit.
+8.Jalankan folder streamlit untuk mencoba.
+
+
