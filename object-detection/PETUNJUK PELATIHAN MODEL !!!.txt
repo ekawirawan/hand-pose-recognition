@@ -1,0 +1,7 @@
+PETUNJUK PELATIHAN MODEL !!!
+1.Extract dataset.zip.
+2.Buka folder Images pada folders models.
+3.Masukan images yang telah di ekstrak kedalam folder yang sudah ada sesuai namanya.
+4.Masukan file anotasi yang ada di dataset yang baru diesktrak kedalam folder Data.
+#Lanjutkan !!
+
