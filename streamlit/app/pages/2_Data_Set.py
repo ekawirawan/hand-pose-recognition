@@ -19,7 +19,7 @@ def load_images(path):
 
 st.title("Datasets")
 
-path = "assets/datasets"
+path = "../assets/datasets"
 
 images = load_images(path)
 
@@ -68,5 +68,5 @@ else:
         if st.session_state.indexSelected > 0:
             st.session_state.indexSelected -= 1
 
-    st.write(f"{st.session_state.indexSelected} / {len(displayed_images)-1}")
+    st.write(f"{st.session_state.indexSelected + 1} / {len(displayed_images)}")
     st.image(displayed_images[st.session_state.indexSelected], use_column_width=True)
