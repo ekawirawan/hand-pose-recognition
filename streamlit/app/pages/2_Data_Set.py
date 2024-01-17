@@ -7,7 +7,10 @@ st.set_page_config(
     page_icon=":camera_with_flash:",
 )
 
+st.header("Datasets", divider="rainbow")
 
+
+@st.cache_data
 def load_images(path):
     images = []
     for file_name in os.listdir(path):
@@ -25,7 +28,6 @@ images = load_images(path)
 
 categories = [d for d in os.listdir(path) if os.path.isdir(os.path.join(path, d))]
 
-# Initialize st.session_state.filter_option
 if "filter_option" not in st.session_state:
     st.session_state.filter_option = "All"
 
@@ -34,7 +36,6 @@ filter_option = st.selectbox(
     "Choose Category", ["All"] + categories, key="category_selector"
 )
 
-# Set st.session_state.indexSelected menjadi 0 ketika filter_option berubah
 if filter_option != st.session_state.filter_option:
     st.session_state.indexSelected = 0
     st.session_state.filter_option = filter_option
