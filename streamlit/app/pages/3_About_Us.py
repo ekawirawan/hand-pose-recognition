@@ -12,7 +12,7 @@ st.markdown("---")
 col3, col4 = st.columns(2)
 
 with col1:
-    st.image("assets/illustrations/selfie_illustration.jpg")
+    st.image("../assets/illustrations/selfie_illustration.jpg")
 with col2:
     st.markdown("**Hello there!** :wave:")
     st.markdown(
@@ -34,7 +34,8 @@ with col3:
     )
     st.link_button("Github", "https://github.com/wisnadiputra1")
 with col4:
-    st.image("assets/illustrations/selfie_illustration.jpg")
+    st.image("../assets/illustrations/selfie_illustration.jpg")
+
 import streamlit as st
 
 st.set_page_config(

@@ -20,7 +20,9 @@ def load_images(path):
     return images
 
 
-path = "assets/datasets"
+st.title("Datasets")
+
+path = "../assets/datasets"
 
 images = load_images(path)
 

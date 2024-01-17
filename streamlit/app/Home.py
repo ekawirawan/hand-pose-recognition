@@ -15,4 +15,4 @@ with col1:
     )
     st.link_button("Try now :sparkles:", "/Camera_Filter")
 with col2:
-    st.image("assets/illustrations/selfie_illustration.jpg")
+    st.image("../assets/illustrations/selfie_illustration.jpg")

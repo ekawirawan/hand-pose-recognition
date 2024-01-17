@@ -54,7 +54,6 @@ def handEmote(pose):
         "WIN_20240111_23_06_04_Pro_jpg.rf.1d9eea908a8ab82dfc771fdec8ad8d61.jpg",
     )
 
-    # gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     face_det = face_cas.detectMultiScale(frame, 1.3, 5)
     emote = ""
     for x, y, w, h in face_det:
