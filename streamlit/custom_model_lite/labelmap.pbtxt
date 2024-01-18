@@ -1,0 +1,15 @@
+item {
+  id: 1
+  name: 'poseV'
+}
+
+item {
+  id: 2
+  name: 'thumb'
+}
+
+item {
+  id: 3
+  name: 'metal'
+}
+
