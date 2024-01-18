@@ -1,3 +1,8 @@
+import os
+import sys
+import threading
+from typing import Union
+
 import av
 import cv2
 import numpy as np
@@ -9,15 +14,13 @@ from streamlit_webrtc import (
     WebRtcMode,
     webrtc_streamer,
 )
+from helpers.upload_image import upload_image, download_image
 
-import os
-import sys
 
 # Add the parent directory of mypackage to the Python path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 import streamlit as st
-
 
 PATH_TO_MODEL = "./custom_model_lite/detect.tflite"
 PATH_TO_LABELS = "./custom_model_lite/labelmap.txt"
@@ -135,89 +138,130 @@ RTC_CONFIGURATION = RTCConfiguration(
 )
 
 
-def video_frame_callback(frame: av.VideoFrame, min_conf=0.5) -> av.VideoFrame:
-    interpreter = load_tf_lite_model()
-    labels = load_labels()
+class VideoTransformer(VideoTransformerBase):
+    frame_lock: threading.Lock
+    out_image: Union[np.ndarray, None]
 
-    input_mean = 127.5
-    input_std = 127.5
+    def __init__(self) -> None:
+        self.frame_lock = threading.Lock()
+        self.out_image = None
 
-    # get model details
-    input_details, output_details, height, width, float_input = get_model_details(
-        interpreter=interpreter
-    )
+    def transform(self, frame: av.VideoFrame) -> np.ndarray:
+        interpreter = load_tf_lite_model()
 
-    image = frame.to_ndarray(format="bgr24")
+        labels = load_labels()
 
-    imH, imW, _ = image.shape
-    image_resized = cv2.resize(image, (width, height))
-    input_data = np.expand_dims(image_resized, axis=0)
+        input_mean = 127.5
+        input_std = 127.5
 
-    # Normalize pixel values
-    if float_input:
-        input_data = (np.float32(input_data) - input_mean) / input_std
+        # get model details
+        input_details, output_details, height, width, float_input = get_model_details(
+            interpreter=interpreter
+        )
 
-    # Perform the actual detection
-    interpreter.set_tensor(input_details[0]["index"], input_data)
-    interpreter.invoke()
+        out_image = frame.to_ndarray(format="bgr24")
 
-    # Retrieve detection results
-    boxes = interpreter.get_tensor(output_details[1]["index"])[0]
-    classes = interpreter.get_tensor(output_details[3]["index"])[0]
-    scores = interpreter.get_tensor(output_details[0]["index"])[0]
+        # image_rgb = cv2.cvtColor(out_image, cv2.COLOR_BGR2RGB)
+        imH, imW, _ = out_image.shape
 
-    for i in range(len(scores)):
-        if (scores[i] > min_conf) and (scores[i] <= 1.0):
-            ymin = int(max(1, (boxes[i][0] * imH)))
-            xmin = int(max(1, (boxes[i][1] * imW)))
-            ymax = int(min(imH, (boxes[i][2] * imH)))
-            xmax = int(min(imW, (boxes[i][3] * imW)))
+        image_resized = cv2.resize(out_image, (width, height))
+        input_data = np.expand_dims(image_resized, axis=0)
 
-            cv2.rectangle(image, (xmin, ymin), (xmax, ymax), (10, 255, 0), 2)
+        # Normalize pixel values
+        if float_input:
+            input_data = (np.float32(input_data) - input_mean) / input_std
 
-            # Draw label
-            object_name = labels[int(classes[i])]
+        # Perform the actual detection
+        interpreter.set_tensor(input_details[0]["index"], input_data)
+        interpreter.invoke()
 
-            label = "%s: %d%%" % (
-                object_name,
-                int(scores[i] * 100),
-            )
+        # Retrieve detection results
+        boxes = interpreter.get_tensor(output_details[1]["index"])[0]
+        classes = interpreter.get_tensor(output_details[3]["index"])[0]
+        scores = interpreter.get_tensor(output_details[0]["index"])[0]
 
-            labelSize, baseLine = cv2.getTextSize(
-                label, cv2.FONT_HERSHEY_SIMPLEX, 0.7, 2
-            )
+        for i in range(len(scores)):
+            if (scores[i] > 0.5) and (scores[i] <= 1.0):
+                ymin = int(max(1, (boxes[i][0] * imH)))
+                xmin = int(max(1, (boxes[i][1] * imW)))
+                ymax = int(min(imH, (boxes[i][2] * imH)))
+                xmax = int(min(imW, (boxes[i][3] * imW)))
 
-            label_ymin = max(ymin, labelSize[1] + 10)
+                cv2.rectangle(out_image, (xmin, ymin), (xmax, ymax), (10, 255, 0), 2)
 
-            cv2.rectangle(
-                image,
-                (xmin, label_ymin - labelSize[1] - 10),
-                (xmin + labelSize[0], label_ymin + baseLine - 10),
-                (255, 255, 255),
-                cv2.FILLED,
-            )
+                # Draw label
+                object_name = labels[int(classes[i])]
 
-            cv2.putText(
-                image,
-                label,
-                (xmin, label_ymin - 7),
-                cv2.FONT_HERSHEY_SIMPLEX,
-                0.7,
-                (0, 0, 0),
-                2,
-            )
+                label = "%s: %d%%" % (
+                    object_name,
+                    int(scores[i] * 100),
+                )
 
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+                labelSize, baseLine = cv2.getTextSize(
+                    label, cv2.FONT_HERSHEY_SIMPLEX, 0.7, 2
+                )
 
-    return av.VideoFrame.from_ndarray(image, format="bgr24")
+                label_ymin = max(ymin, labelSize[1] + 10)
+
+                cv2.rectangle(
+                    out_image,
+                    (xmin, label_ymin - labelSize[1] - 10),
+                    (xmin + labelSize[0], label_ymin + baseLine - 10),
+                    (255, 255, 255),
+                    cv2.FILLED,
+                )
+
+                cv2.putText(
+                    out_image,
+                    label,
+                    (xmin, label_ymin - 7),
+                    cv2.FONT_HERSHEY_SIMPLEX,
+                    0.7,
+                    (0, 0, 0),
+                    2,
+                )
+
+                with self.frame_lock:
+                    self.out_image = out_image
+
+        out_image = cv2.cvtColor(out_image, cv2.COLOR_BGR2RGB)
+        return out_image
+
+
+from io import BytesIO
 
 
 def realtime_video_detection():
-    webrtc_streamer(
+    ctx = webrtc_streamer(
         key="object detection",
         mode=WebRtcMode.SENDRECV,
         rtc_configuration=RTC_CONFIGURATION,
-        video_frame_callback=video_frame_callback,
+        video_transformer_factory=VideoTransformer,
         media_stream_constraints={"video": True, "audio": False},
         async_processing=True,
     )
+
+    if ctx.video_transformer:
+        snap = st.button("Snapshot")
+        if snap:
+            with ctx.video_transformer.frame_lock:
+                out_image = ctx.video_transformer.out_image
+
+            if out_image is not None:
+                st.write("Output image:")
+                st.image(out_image, channels="BGR")
+                destionation_path = upload_image(out_image)
+
+                image_url = download_image(destionation_path)
+
+                if st.button("Download Image"):
+                    img_byte_io = BytesIO(image_url)
+                    st.download_button(
+                        key="download_button",
+                        data=img_byte_io,
+                        file_name="downloaded_image.jpg",
+                        help="This will download the image file.",
+                    )
+
+            else:
+                st.warning("No frames available yet.")
