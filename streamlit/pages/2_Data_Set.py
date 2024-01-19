@@ -1,5 +1,4 @@
 import os
-
 import streamlit as st
 
 st.set_page_config(
@@ -20,9 +19,7 @@ def load_images(path):
     return images
 
 
-st.title("Datasets")
-
-path = "../assets/datasets"
+path = "assets/datasets"
 
 images = load_images(path)
 

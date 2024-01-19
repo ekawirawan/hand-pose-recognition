@@ -2,9 +2,9 @@ import cv2
 import streamlit as st
 
 
-PATH_TO_EMOTE_POSE_V = "assets/illustrations\hand-pose\pose-v.png"
-PATH_TO_EMOTE_THUMB = "assets/illustrations/hand-pose/pose-thumb.png"
-PATH_TO_EMOTE_METAL = "assets\illustrations/hand-pose/pose-metal.png"
+PATH_TO_EMOTE_POSE_V = "assets/illustrations/hand-pose/glasses-pose-v.png"
+PATH_TO_EMOTE_THUMB = "assets/illustrations/hand-pose/glasses-thumb.png"
+PATH_TO_EMOTE_METAL = "assets/illustrations/hand-pose/glasses-metal.png"
 
 
 @st.cache_resource
@@ -25,31 +25,36 @@ def put_emote(emote, fc, x, y, w, h):
     face_width = w
     face_height = h
 
-    hat_width = face_width - 50
-    hat_height = int(0.30 * face_height) + 1
+    hat_width = int(face_width * 1.0)
+    hat_height = int(0.70 * face_height) + 1
 
-    emote = cv2.resize(emote, (hat_width, hat_height), interpolation=cv2.INTER_NEAREST)
+    glass_x = x - int((hat_width - face_width) / 2)
+    glass_y = y - int(0.10 * face_height)
+
+    glass_resized = cv2.resize(emote, (hat_width, hat_height))
 
     for i in range(hat_height):
         for j in range(hat_width):
-            for k in range(3):
-                if emote[i][j][3] > 0:
-                    fc[y + i - int(-0.20 * face_height)][x + j][k] = emote[i][j][k]
+            if glass_resized[i, j, 3] != 0: 
+                fc[glass_y + i][glass_x + j][:3] = glass_resized[
+                    i, j, :3
+                ]
+
     return fc
 
 
-def handEmote(pose, img_path):
-    face_cas = read_face_haarcascade()
-    posev_emote, thumb_emote, metal_emote = read_emote_pose()
+def handEmote(pose, frame, face_cas, posev_emote, thumb_emote, metal_emote):
+    # face_cas = read_face_haarcascade()
+    # posev_emote, thumb_emote, metal_emote = read_emote_pose()
 
-    frame = cv2.imread(img_path)
+    # frame = cv2.imread(img_path)
 
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     face_det = face_cas.detectMultiScale(gray, 1.3, 5)
 
     emote = ""
     for x, y, w, h in face_det:
-        if pose == "posev":
+        if pose == "poseV":
             emote = posev_emote
         elif pose == "thumb":
             emote = thumb_emote

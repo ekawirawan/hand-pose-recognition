@@ -1,5 +1,6 @@
 import os
 import sys
+import tempfile
 import threading
 from typing import Union
 
@@ -7,6 +8,7 @@ import av
 import cv2
 import numpy as np
 import tensorflow as tf
+from helpers.upload_image import download_image, upload_image
 from streamlit_webrtc import (
     RTCConfiguration,
     VideoProcessorBase,
@@ -14,8 +16,8 @@ from streamlit_webrtc import (
     WebRtcMode,
     webrtc_streamer,
 )
-from helpers.upload_image import upload_image, download_image
 
+from helpers.filter_image import handEmote, read_emote_pose, read_face_haarcascade
 
 # Add the parent directory of mypackage to the Python path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
@@ -137,6 +139,9 @@ RTC_CONFIGURATION = RTCConfiguration(
     {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
 )
 
+face_cas = read_face_haarcascade()
+posev_emote, thumb_emote, metal_emote = read_emote_pose()
+
 
 class VideoTransformer(VideoTransformerBase):
     frame_lock: threading.Lock
@@ -221,14 +226,25 @@ class VideoTransformer(VideoTransformerBase):
                     2,
                 )
 
+                out_image = handEmote(
+                    object_name,
+                    out_image,
+                    face_cas,
+                    posev_emote,
+                    thumb_emote,
+                    metal_emote,
+                )
+
                 with self.frame_lock:
                     self.out_image = out_image
 
-        out_image = cv2.cvtColor(out_image, cv2.COLOR_BGR2RGB)
+        # out_image = cv2.cvtColor(out_image, cv2.COLOR_BGR2RGB)
         return out_image
 
 
 from io import BytesIO
+
+from PIL import Image
 
 
 def realtime_video_detection():
@@ -252,16 +268,18 @@ def realtime_video_detection():
                 st.image(out_image, channels="BGR")
                 destionation_path = upload_image(out_image)
 
-                image_url = download_image(destionation_path)
-
-                if st.button("Download Image"):
-                    img_byte_io = BytesIO(image_url)
-                    st.download_button(
-                        key="download_button",
-                        data=img_byte_io,
-                        file_name="downloaded_image.jpg",
-                        help="This will download the image file.",
-                    )
+                # Menampilkan tautan untuk mengunduh gambar
+                temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".jpg")
+                temp_file_path = temp_file.name
+                temp_file.close()
+                download_image(destionation_path, temp_file_path)
+                st.download_button(
+                    label="Download Image",
+                    data=Image.open(temp_file_path).tobytes(),
+                    key="image_download",
+                    file_name="downloaded_image.jpg",
+                    mime="image/jpeg",
+                )
 
             else:
                 st.warning("No frames available yet.")
