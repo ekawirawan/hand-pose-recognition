@@ -29,14 +29,12 @@ def upload_image(img_array):
     return destination_path
 
 
-def download_image(file_name):
+def download_image(image_path_in_storage, local_temp_file_path):
     bucket = storage.bucket()
 
-    blob = bucket.blob(file_name)
+    blob = bucket.blob(image_path_in_storage)
 
-    img_data = blob.download_as_bytes()
-
-    return img_data
+    blob.download_(local_temp_file_path)
 
 
 # file_name_uploaded = upload_image("../../test.jpg")
