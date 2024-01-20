@@ -34,4 +34,4 @@ with col3:
     )
     st.link_button("Github", "https://github.com/wisnadiputra1")
 with col4:
-    st.image("assets/illustrations/selfie_illustration.jpg")
+    st.image("assets/illustrations/profil.png")
