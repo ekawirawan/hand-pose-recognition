@@ -1,8 +1,9 @@
 import uuid
-import cv2
 
+import cv2
 import firebase_admin
 from firebase_admin import credentials, storage
+import datetime
 
 PATH_TO_SERVICE_ACCOUNT = "venv/serviceAccount.json"
 
@@ -26,21 +27,11 @@ def upload_image(img_array):
 
     blob.upload_from_string(img_byte_array, content_type="image/jpeg")
 
-    return destination_path
-
-
-def download_image(image_path_in_storage, local_temp_file_path):
-    bucket = storage.bucket()
-
-    blob = bucket.blob(image_path_in_storage)
-
-    blob.download_(local_temp_file_path)
-
-
-# file_name_uploaded = upload_image("../../test.jpg")
-
-# local_download_path = (
-#     "../../fromfirebase.jpg"  # path lokal untuk menyimpan file yg diunduh
-# )
-
-# download_image(file_name_uploaded, local_download_path)
+    return blob.generate_signed_url(
+        response_disposition="attachment",
+        version="v4",
+        # This URL is valid for 15 minutes
+        expiration=datetime.timedelta(minutes=15),
+        # Allow GET requests using this URL
+        method="GET",
+    )

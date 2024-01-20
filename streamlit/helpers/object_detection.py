@@ -1,6 +1,5 @@
 import os
 import sys
-import tempfile
 import threading
 from typing import Union
 
@@ -8,7 +7,8 @@ import av
 import cv2
 import numpy as np
 import tensorflow as tf
-from helpers.upload_image import download_image, upload_image
+from helpers.filter_image import handEmote, read_emote_pose, read_face_haarcascade
+from helpers.upload_image import upload_image
 from streamlit_webrtc import (
     RTCConfiguration,
     VideoProcessorBase,
@@ -16,8 +16,6 @@ from streamlit_webrtc import (
     WebRtcMode,
     webrtc_streamer,
 )
-
-from helpers.filter_image import handEmote, read_emote_pose, read_face_haarcascade
 
 # Add the parent directory of mypackage to the Python path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
@@ -131,7 +129,6 @@ def detect_images(image_path, min_conf=0.5):
                 2,
             )
 
-    image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     st.image(image)
 
 
@@ -238,13 +235,7 @@ class VideoTransformer(VideoTransformerBase):
                 with self.frame_lock:
                     self.out_image = out_image
 
-        # out_image = cv2.cvtColor(out_image, cv2.COLOR_BGR2RGB)
         return out_image
-
-
-from io import BytesIO
-
-from PIL import Image
 
 
 def realtime_video_detection():
@@ -264,22 +255,12 @@ def realtime_video_detection():
                 out_image = ctx.video_transformer.out_image
 
             if out_image is not None:
-                st.write("Output image:")
+                st.write("Result:")
                 st.image(out_image, channels="BGR")
-                destionation_path = upload_image(out_image)
-
-                # Menampilkan tautan untuk mengunduh gambar
-                temp_file = tempfile.NamedTemporaryFile(delete=False, suffix=".jpg")
-                temp_file_path = temp_file.name
-                temp_file.close()
-                download_image(destionation_path, temp_file_path)
-                st.download_button(
-                    label="Download Image",
-                    data=Image.open(temp_file_path).tobytes(),
-                    key="image_download",
-                    file_name="downloaded_image.jpg",
-                    mime="image/jpeg",
+                public_url = upload_image(out_image)
+                st.markdown(
+                    f"<a href='{public_url}' download='hand-pose-recognition.jpg' class='st-emotion-cache-1ol4dec e16zdaao0'>Download &#10515;</a>",
+                    unsafe_allow_html=True,
                 )
-
             else:
                 st.warning("No frames available yet.")
