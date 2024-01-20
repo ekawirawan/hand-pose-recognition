@@ -12,7 +12,7 @@ st.markdown("---")
 col3, col4 = st.columns(2)
 
 with col1:
-    st.image("assets/illustrations/selfie_illustration.jpg")
+    st.image("assets/illustrations/eka.png")
 with col2:
     st.markdown("**Hello there!** :wave:")
     st.markdown(
