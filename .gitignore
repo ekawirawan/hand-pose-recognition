@@ -1,9 +1,6 @@
-serviceAccount.json
 __pycache__/
 *.pyc
 *.pyo
 
-
-# Virtual environment
-venv/
-venv*/
+secret.toml
+.streamlit/
