@@ -262,7 +262,7 @@ def realtime_video_detection():
                 st.image(out_image, channels="BGR")
                 public_url = upload_image(out_image)
                 st.markdown(
-                    f"<a href='{public_url}' download='hand-pose-recognition.jpg' class='st-emotion-cache-1ol4dec e16zdaao0'>Download Photo &#10515;</a>",
+                    f"<a href='{public_url}' download='hand-pose-recognition.jpg' style='display: inline-flex; -webkit-box-align: center; align-items: center; -webkit-box-pack: center; justify-content: center; font-weight: 400; padding: 0.25rem 0.75rem; border-radius: 0.5rem; min-height: 38.4px; margin: 0px; line-height: 1.6; color: inherit; width: auto; user-select: none; background-color: rgb(19, 23, 32); border: 1px solid rgba(250, 250, 250, 0.2); text-decoration: none;'>Download Photo &#10515;</a>",
                     unsafe_allow_html=True,
                 )
             else:

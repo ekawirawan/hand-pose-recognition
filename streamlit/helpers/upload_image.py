@@ -1,15 +1,17 @@
+import datetime
 import uuid
 
 import cv2
 import firebase_admin
 from firebase_admin import credentials, storage
-import datetime
 
-PATH_TO_SERVICE_ACCOUNT = "venv/serviceAccount.json"
+import streamlit as st
 
+fb_credentials = st.secrets["firebase"]["my_project_settings"]
+fb_credentials_dict = dict(fb_credentials)
 
 if not firebase_admin._apps:
-    cred = credentials.Certificate(PATH_TO_SERVICE_ACCOUNT)
+    cred = credentials.Certificate(fb_credentials_dict)
     app = firebase_admin.initialize_app(
         cred, {"storageBucket": "hand-pose-recognition.appspot.com"}
     )
