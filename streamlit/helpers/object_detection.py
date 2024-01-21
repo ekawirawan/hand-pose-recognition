@@ -239,6 +239,8 @@ class VideoTransformer(VideoTransformerBase):
 
 
 def realtime_video_detection():
+    info = st.empty()
+    info.markdown("First, click on :blue['START'] to use webcam")
     ctx = webrtc_streamer(
         key="object detection",
         mode=WebRtcMode.SENDRECV,
@@ -249,7 +251,8 @@ def realtime_video_detection():
     )
 
     if ctx.video_transformer:
-        snap = st.button("Snapshot")
+        info.markdown("Click on :blue['SNAPSHOT'] to take a picture")
+        snap = st.button("SNAPSHOT")
         if snap:
             with ctx.video_transformer.frame_lock:
                 out_image = ctx.video_transformer.out_image
@@ -259,7 +262,7 @@ def realtime_video_detection():
                 st.image(out_image, channels="BGR")
                 public_url = upload_image(out_image)
                 st.markdown(
-                    f"<a href='{public_url}' download='hand-pose-recognition.jpg' class='st-emotion-cache-1ol4dec e16zdaao0'>Download &#10515;</a>",
+                    f"<a href='{public_url}' download='hand-pose-recognition.jpg' class='st-emotion-cache-1ol4dec e16zdaao0'>Download Photo &#10515;</a>",
                     unsafe_allow_html=True,
                 )
             else:
