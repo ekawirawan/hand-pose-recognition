@@ -11,7 +11,6 @@ from helpers.object_detection import realtime_video_detection
 
 sys.path.append("helpers")
 
-
 st.header("Camera Filter :sparkles:", divider="rainbow")
 
 realtime_video_detection()
