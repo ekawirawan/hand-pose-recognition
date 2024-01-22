@@ -1,0 +1,6 @@
+opencv-python
+av
+numpy
+tensorflow
+streamlit_webrtc
+firebase_admin
