@@ -1,8 +1,6 @@
-import os
-import sys
 import threading
 from typing import Union
-
+import streamlit as st
 import av
 import cv2
 import numpy as np
@@ -16,11 +14,6 @@ from streamlit_webrtc import (
     WebRtcMode,
     webrtc_streamer,
 )
-
-# Add the parent directory of mypackage to the Python path
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
-
-import streamlit as st
 
 PATH_TO_MODEL = "./custom_model_lite/detect.tflite"
 PATH_TO_LABELS = "./custom_model_lite/labelmap.txt"
