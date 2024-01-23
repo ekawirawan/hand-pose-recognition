@@ -1,4 +1,4 @@
-opencv-python
+opencv-python-headless
 av
 numpy
 tensorflow
