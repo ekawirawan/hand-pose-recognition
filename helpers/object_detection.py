@@ -1,12 +1,11 @@
 import threading
 from typing import Union
-import streamlit as st
+
 import av
 import cv2
 import numpy as np
+import streamlit as st
 import tensorflow as tf
-from helpers.filter_image import handEmote, read_emote_pose, read_face_haarcascade
-from helpers.upload_image import upload_image
 from streamlit_webrtc import (
     RTCConfiguration,
     VideoProcessorBase,
@@ -14,6 +13,10 @@ from streamlit_webrtc import (
     WebRtcMode,
     webrtc_streamer,
 )
+
+from helpers.filter_image import handEmote, read_emote_pose, read_face_haarcascade
+from helpers.turn import get_ice_servers
+from helpers.upload_image import upload_image
 
 PATH_TO_MODEL = "./custom_model_lite/detect.tflite"
 PATH_TO_LABELS = "./custom_model_lite/labelmap.txt"
@@ -237,7 +240,7 @@ def realtime_video_detection():
     ctx = webrtc_streamer(
         key="object detection",
         mode=WebRtcMode.SENDRECV,
-        rtc_configuration=RTC_CONFIGURATION,
+        rtc_configuration={"iceServers": get_ice_servers()},
         video_transformer_factory=VideoTransformer,
         media_stream_constraints={"video": True, "audio": False},
         async_processing=True,
