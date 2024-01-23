@@ -1,6 +1,6 @@
-opencv-python-headless
 av
 numpy
 tensorflow
 streamlit_webrtc
 firebase_admin
+opencv-python-headless
