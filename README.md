@@ -1,5 +1,7 @@
 ## PoseCam📸
 
+![Test Filter Camera](test_filter_camera.gif)
+
 PoseCam is a **camera filter app** that integrated with a trained **model machine learning**.
 
 With the integration of PoseCam and machine learning models, users can experience amazing selfie photography, where hand pose glasses stickers will automatically appear in real-time in face areas when users take selfies using **Pose V**, **Pose Metal**, or **Pose Thumb**. ✌️👍🤘
