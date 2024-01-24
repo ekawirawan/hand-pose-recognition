@@ -132,12 +132,6 @@ Start the server
 
 ## Tech Stack
 
-**Client:** React, Redux, TailwindCSS
-
-**Server:** Node, Express
-
-## Tech Stack
-
 ### Streamlit
 
 In developing the web-based PoseCam application, we chose to use **Streamlit** as the main framework, because Streamlit gives us ease and speed in building user interfaces using pure **Python**.
