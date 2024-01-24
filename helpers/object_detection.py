@@ -7,7 +7,6 @@ import numpy as np
 import streamlit as st
 import tensorflow as tf
 from streamlit_webrtc import (
-    RTCConfiguration,
     VideoProcessorBase,
     VideoTransformerBase,
     WebRtcMode,
@@ -128,9 +127,9 @@ def detect_images(image_path, min_conf=0.5):
     st.image(image)
 
 
-RTC_CONFIGURATION = RTCConfiguration(
-    {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
-)
+# RTC_CONFIGURATION = RTCConfiguration(
+#     {"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]}
+# )
 
 face_cas = read_face_haarcascade()
 posev_emote, thumb_emote, metal_emote = read_emote_pose()
