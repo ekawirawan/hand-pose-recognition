@@ -16,5 +16,7 @@ with col1:
     st.link_button("Try now :sparkles:", "/Camera_Filter_✨")
 with col2:
     st.image("assets/illustrations/image1.jpg")
-    
+
+st.markdown("")
+st.markdown("")
 st.image("assets/illustrations/baner.jpg")

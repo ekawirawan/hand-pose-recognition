@@ -27,7 +27,7 @@ with col2:
 with col3:
     st.markdown("**Hello everyone!** :raised_hands:")
     st.markdown(
-        "I'm :blue[**I Ketut Wisnadiputra**], a passionate explorer in the vast realm of technology, currently navigating my academic journey as a student."
+        "I'm :blue[**I Ketut Wisnadiputra**], My desire to consistently learn about technology never wanes. As a student, I perceive every lesson as an opportunity to delve into this ever-evolving world, creating a solid foundation for a future filled with innovation."
     )
     st.markdown(
         "Join me on this thrilling adventure where bytes and bits come to life, and let's explore the boundless horizons of technology together! 🚀✨"
