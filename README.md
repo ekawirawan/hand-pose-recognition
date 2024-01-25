@@ -62,10 +62,6 @@ Install dependencies
   pip install  av
 ```
 
-```bash
-  pip install firebase_admin
-```
-
 Get SID and secret token from **Twilio**
 
 - Visit on https://www.twilio.com
