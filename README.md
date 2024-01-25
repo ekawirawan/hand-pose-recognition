@@ -2,7 +2,7 @@
 
 ![Test Filter Camera](test_filter_camera.gif)
 
-PoseCam is a **camera filter app** that integrated with a trained **model machine learning**.
+PoseCam is a `camera filter app` that integrated with a trained **model machine learning**.
 
 With the integration of PoseCam and machine learning models, users can experience amazing selfie photography, where hand pose glasses stickers will automatically appear in real-time in face areas when users take selfies using **Pose V**, **Pose Metal**, or **Pose Thumb**. ✌️👍🤘
 
@@ -73,13 +73,13 @@ Get SID and secret token from **Twilio**
 - Create API keys & tokens on https://console.twilio.com
 - Save your SID and secret token
 
-Get SID and secret token from **Firebase**
+Generate private key from **Firebase**
 
 - Visit on https://firebase.google.com
 - Log in, if you don’t have an account, Sign up.
 - Click **Add project** button to add new project in your account
 - Click add firebase to your web app
-- Open **firebase Admin SDK** tab and generate new private key (it will be downloaded .json file)
+- Open **firebase Admin SDK** tab and generate new private key (it will be download .json file)
 - Get started in storage
 - Open setting rules change with code below:
 
