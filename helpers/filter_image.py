@@ -44,11 +44,6 @@ def put_emote(emote, fc, x, y, w, h):
 
 
 def handEmote(pose, frame, face_cas, posev_emote, thumb_emote, metal_emote):
-    # face_cas = read_face_haarcascade()
-    # posev_emote, thumb_emote, metal_emote = read_emote_pose()
-
-    # frame = cv2.imread(img_path)
-
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     face_det = face_cas.detectMultiScale(gray, 1.3, 5)
 

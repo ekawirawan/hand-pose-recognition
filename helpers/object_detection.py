@@ -79,7 +79,6 @@ class VideoTransformer(VideoTransformerBase):
 
         out_image = frame.to_ndarray(format="bgr24")
 
-        # image_rgb = cv2.cvtColor(out_image, cv2.COLOR_BGR2RGB)
         imH, imW, _ = out_image.shape
 
         image_resized = cv2.resize(out_image, (width, height))
