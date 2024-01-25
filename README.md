@@ -8,7 +8,7 @@ With the integration of PoseCam and machine learning models, users can experienc
 
 ## Demo
 
-https://readme.so/editor
+https://posecam.streamlit.app/
 
 ## How To Use App
 
