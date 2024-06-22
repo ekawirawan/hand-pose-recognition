@@ -1,7 +1,7 @@
-av
-numpy<2
-tensorflow
-streamlit_webrtc
-firebase_admin
-opencv-python-headless
-twilio
+av==12.1.0
+numpy==1.26.4
+tensorflow==2.16.1
+streamlit_webrtc==0.47.7
+firebase_admin==6.5.0
+opencv-python-headless==4.10.0.84
+twilio==9.2.1
