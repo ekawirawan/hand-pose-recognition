@@ -1,5 +1,5 @@
 av
-numpy
+numpy<2
 tensorflow
 streamlit_webrtc
 firebase_admin
